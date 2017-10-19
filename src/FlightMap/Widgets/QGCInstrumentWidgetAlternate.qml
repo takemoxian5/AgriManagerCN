@@ -100,6 +100,4 @@ Rectangle {
             maxHeight:          _availableValueHeight
         }
     }
-
-
 }

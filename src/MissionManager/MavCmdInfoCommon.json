@@ -15,12 +15,12 @@
             "category":             "Basic",
             "param5": {
                 "label":            "Latitude",
-                "default":          37.803784,
+                "default":          22.575877,  
                 "decimalPlaces":    7
             },
             "param6": {
                 "label":            "Longitude",
-                "default":          -122.462276,
+                "default":          113.590000,  
                 "decimalPlaces":    7
             }
         },

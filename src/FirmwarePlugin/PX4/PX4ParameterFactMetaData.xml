@@ -3373,7 +3373,7 @@ COM_OBL_ACT and COM_OBL_RC_ACT 参考可以设置触发动作</short_desc>
         <value code="0">Zero Order Hold</value>
       </values>
     </parameter>
-    <parameter default="1" name="MIS_YAWMODE" type="INT32">
+    <parameter default="0" name="MIS_YAWMODE" type="INT32">
       <short_desc>仅限多旋转。偏航设定值模式</short_desc>
       <long_desc>这些值在枚举task_altitude_mode</long_desc>
       <min>0</min>
