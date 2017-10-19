@@ -1,0 +1,21 @@
+﻿[
+{
+    "name":             "Latitude",
+    "shortDescription": "集结点位置纬度",
+    "type":             "double",
+    "decimalPlaces":    7
+},
+{
+    "name":             "Longitude",
+    "shortDescription": "集结点位置经度",
+    "type":             "double",
+    "decimalPlaces":    7
+},
+{
+    "name":             "Altitude",
+    "shortDescription": "集结点位置(相对家)的高度",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "units":            "m"
+}
+]

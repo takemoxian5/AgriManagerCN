@@ -1,0 +1,32 @@
+﻿[
+{
+    "name":             "camera tilt",
+    "shortDescription": "相机倾斜",
+    "type":             "int16",
+    "units":            "%"
+},
+{
+    "name":             "tether turns",
+    "shortDescription": "圈数",
+    "type":             "int16",
+    "units":            "clockwise"
+},
+{
+    "name":             "lights 1",
+    "shortDescription": "灯 1 级",
+    "type":             "int16",
+    "units":            "%"
+},
+{
+    "name":             "lights 2",
+    "shortDescription": "灯 2 级",
+    "type":             "int16",
+    "units":            "%"
+},
+{
+    "name":             "pilot gain",
+    "shortDescription": "调整增益",
+    "type":             "int16",
+    "units":            "%"
+}
+]

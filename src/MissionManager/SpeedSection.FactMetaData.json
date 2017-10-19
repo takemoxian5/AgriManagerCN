@@ -1,0 +1,11 @@
+﻿[
+{
+    "name":             "FlightSpeed",
+    "shortDescription": "设定当前的飞行速度",
+    "type":             "double",
+    "units":            "m/s",
+    "min":              0,
+    "decimalPlaces":    1,
+    "defaultValue":     0
+}
+]

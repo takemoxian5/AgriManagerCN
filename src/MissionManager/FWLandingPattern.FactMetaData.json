@@ -1,0 +1,46 @@
+﻿[
+{
+    "name":             "Landing distance",
+    "shortDescription": "着陆点与盘旋点间距离.",
+    "type":             "double",
+    "units":            "m",
+    "min":              10,
+    "decimalPlaces":    1,
+    "defaultValue":     300.0
+},
+{
+    "name":             "Landing heading",
+    "shortDescription": "盘旋点和着陆点的方向.",
+    "type":             "double",
+    "units":            "deg",
+    "min":              0.0,
+    "max":              360.0,
+    "decimalPlaces":    0,
+    "defaultValue":     270.0
+},
+{
+    "name":             "Loiter altitude",
+    "shortDescription": "飞机将会继续飞行，直到到达这个高度。一旦达到高度，飞机就会着陆.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     40.0
+},
+{
+    "name":             "Loiter radius",
+    "shortDescription": "盘旋半径.",
+    "type":             "double",
+    "decimalPlaces":    1,
+    "min":              1,
+    "units":            "m",
+    "defaultValue":     75.0
+},
+{
+    "name":             "Landing altitude",
+    "shortDescription": "降落点高度.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     0.0
+}
+]

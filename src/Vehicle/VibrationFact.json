@@ -1,0 +1,35 @@
+﻿[
+{
+    "name":             "xAxis",
+    "shortDescription": "振动X轴",
+    "type":             "double",
+    "decimalPlaces":    1
+},
+{
+    "name":             "yAxis",
+    "shortDescription": "振动Y轴",
+    "type":             "double",
+    "decimalPlaces":    1
+},
+{
+    "name":             "zAxis",
+    "shortDescription": "振动Z轴",
+    "type":             "double",
+    "decimalPlaces":    1
+},
+{
+    "name":             "clipCount1",
+    "shortDescription": "肖波数量 (1)",
+    "type":             "uint32"
+},
+{
+    "name":             "clipCount2",
+    "shortDescription": "肖波数量 (2)",
+    "type":             "uint32"
+},
+{
+    "name":             "clipCount3",
+    "shortDescription": "肖波数量 (3)",
+    "type":             "uint32"
+}
+]

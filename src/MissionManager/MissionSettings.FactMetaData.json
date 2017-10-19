@@ -1,0 +1,10 @@
+﻿[
+{
+    "name":             "PlannedHomePositionAltitude",
+    "shortDescription": "规划家位置高度",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     0
+}
+]

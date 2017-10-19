@@ -1,0 +1,169 @@
+﻿[
+{
+    "name":             "ManualGrid",
+    "shortDescription": "为网格生成指定所有参数.",
+    "type":             "bool",
+    "defaultValue":     1
+},
+{
+    "name":             "GridAltitude",
+    "shortDescription": "网格中所有路径点的高度.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     50
+},
+{
+    "name":             "GridAltitudeRelative",
+    "shortDescription": "在网格中所有的点的高度都是相对于家的.",
+    "type":             "bool",
+    "defaultValue":     1
+},
+{
+    "name":             "GridAngle",
+    "shortDescription": "网格平行线角.",
+    "type":             "double",
+    "units":            "deg",
+    "min":              -360.0,
+    "max":              360.0,
+    "decimalPlaces":    1,
+    "defaultValue":     0
+},
+{
+    "name":             "GridSpacing",
+    "shortDescription": "并行网格线间距.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              0.1,
+    "units":            "m",
+    "defaultValue":     30
+},
+{
+    "name":             "TurnaroundDist",
+    "shortDescription": "在网格外增加额外的距离以增加无人机周转.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              0,
+    "units":            "m",
+    "defaultValue":     30
+},
+{
+    "name":             "GroundResolution",
+    "shortDescription": "图像与地面距离的分辨率.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              0,
+    "units":            "cm/px",
+    "defaultValue":     3
+},
+{
+    "name":             "FrontalOverlap",
+    "shortDescription": "正向机头方向的图像的重叠部分.",
+    "type":             "double",
+    "decimalPlaces":    0,
+    "min":              0,
+    "max":              85,
+    "units":            "%",
+    "defaultValue":     70
+},
+{
+    "name":             "SideOverlap",
+    "shortDescription": "机头方向的图像的重叠部分.",
+    "type":             "double",
+    "decimalPlaces":    0,
+    "min":              0,
+    "max":              85,
+    "units":            "%",
+    "defaultValue":     70
+},
+{
+    "name":             "CameraSensorWidth",
+    "shortDescription": "机头方向的图像的重叠部分.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              1,
+    "units":            "mm",
+    "defaultValue":     6.17
+},
+{
+    "name":             "CameraSensorHeight",
+    "shortDescription": "机头方向的图像的重叠部分.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              1,
+    "units":            "mm",
+    "defaultValue":     4.55
+},
+{
+    "name":             "CameraResolutionWidth",
+    "shortDescription": "相机分辨率的宽度.",
+    "type":             "uint32",
+    "min":              1,
+    "units":            "px",
+    "defaultValue":     4000
+},
+{
+    "name":             "CameraResolutionHeight",
+    "shortDescription": "相机分辨率高.",
+    "type":             "uint32",
+    "min":              1,
+    "units":            "px",
+    "defaultValue":     3000
+},
+{
+    "name":             "CameraFocalLength",
+    "shortDescription": "镜头焦距.",
+    "type":             "double",
+    "decimalPlaces":    1,
+    "min":              1,
+    "units":            "mm",
+    "defaultValue":     4.5
+},
+{
+    "name":             "CameraTriggerDistance",
+    "shortDescription": "相机的每一个触发点之间的距离。0指定不触发相机触发器.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "min":              0,
+    "units":            "m",
+    "defaultValue":     25
+},
+{
+    "name":             "CameraTriggerInTurnaround",
+    "shortDescription": "摄像机继续拍摄图像.",
+    "type":             "bool",
+    "defaultValue":     true
+},
+{
+    "name":             "HoverAndCapture",
+    "shortDescription": "在每个图像点上停留并拍摄图像",
+    "type":             "bool",
+    "defaultValue":     false
+},
+{
+    "name":             "CameraOrientationLandscape",
+    "shortDescription": "无人机上的摄像头是横向的.",
+    "type":             "bool",
+    "defaultValue":     1
+},
+{
+    "name":             "FixedValueIsAltitude",
+    "shortDescription": "当地面分辨率改变时，这个高度是kep常数.",
+    "type":             "bool",
+    "defaultValue":     false
+},
+{
+    "name":             "Camera",
+    "shortDescription": "航测相机选项.",
+    "type":             "string",
+    "defaultValue":     ""
+},
+{
+    "name":             "GridEntryLocation",
+    "shortDescription": "进入航测区域的入口点",
+    "type":             "uint32",
+    "enumStrings":      "Position 1, Position 2, Position 3, Position 4",
+    "enumValues":       "0,1,2,3",
+    "defaultValue":     0
+}
+]

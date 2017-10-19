@@ -1,0 +1,36 @@
+﻿[
+{
+    "name":             "connected",
+    "shortDescription": "连接",
+    "type":             "bool"
+},
+{
+    "name":             "currentAccuracy",
+    "shortDescription": "当前精度",
+    "type":             "double",
+    "decimalPlaces":    1,
+    "units":            "m"
+},
+{
+    "name":             "currentDuration",
+    "shortDescription": "持续时间",
+    "type":             "double",
+    "decimalPlaces":    0,
+    "units":            "s"
+},
+{
+    "name":             "valid",
+    "shortDescription": "基站有效",
+    "type":             "bool"
+},
+{
+    "name":             "active",
+    "shortDescription": "基站活动",
+    "type":             "bool"
+},
+{
+    "name":             "numSatellites",
+    "shortDescription": "星数",
+    "type":             "int32"
+}
+]
