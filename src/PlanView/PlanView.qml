@@ -170,6 +170,7 @@ QGCView {
 
         function saveToSelectedFile() {
             fileDialog.title =          qsTr("保存航线规划")
+	    fileDialog.plan =           true
             fileDialog.selectExisting = false
             fileDialog.nameFilters =    masterController.saveNameFilters
             fileDialog.openForSave()
@@ -177,6 +178,14 @@ QGCView {
 
         function fitViewportToItems() {
             mapFitFunctions.fitMapViewportToMissionItems()
+        }
+
+        function saveKmlToSelectedFile() {
+            fileDialog.title =          qsTr("保存KML地图数据")
+            fileDialog.plan =           false
+            fileDialog.selectExisting = false
+            fileDialog.nameFilters =    masterController.saveKmlFilters
+            fileDialog.openForSave()
         }
     }
 
@@ -229,12 +238,13 @@ QGCView {
     QGCFileDialog {
         id:             fileDialog
         qgcView:        _qgcView
+        property var plan:           true
         folder:         QGroundControl.settingsManager.appSettings.missionSavePath
         fileExtension:  QGroundControl.settingsManager.appSettings.planFileExtension
         fileExtension2: QGroundControl.settingsManager.appSettings.missionFileExtension
 
         onAcceptedForSave: {
-            masterController.saveToFile(file)
+            plan ? masterController.saveToFile(file) : masterController.saveToKml(file)
             close()
         }
 
@@ -317,13 +327,14 @@ QGCView {
                 //-- It's a whole lot faster to just fill parent and deal with top offset below
                 //   than computing the coordinate offset.
                 anchors.fill: parent
-                onClicked: {
+                onClicked: { 
+                //G201709281286 ChenYang 鼠标点击 动作
                     //-- Don't pay attention to items beneath the toolbar.
                     var topLimit = parent.height - ScreenTools.availableHeight
                     if(mouse.y < topLimit) {
                         return
                     }
-
+					//转化为地图对应坐标
                     var coordinate = editorMap.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
                     coordinate.latitude = coordinate.latitude.toFixed(_decimalPlaces)
                     coordinate.longitude = coordinate.longitude.toFixed(_decimalPlaces)
@@ -331,7 +342,7 @@ QGCView {
 
                     switch (_editingLayer) {
                     case _layerMission:
-                        if (_addWaypointOnClick) {
+                        if (_addWaypointOnClick) {                  //添加航点模式（模式0） 开启
                             insertSimpleMissionItem(coordinate, _missionController.visualItems.count)
                         }
                         break
@@ -791,6 +802,16 @@ QGCView {
                     onClicked:  {
                         dropPanel.hide()
                         _qgcView.showDialog(removeAllPromptDialog, qsTr("移除所有"), _qgcView.showDialogDefaultWidth, StandardButton.Yes | StandardButton.No)
+                    }
+                }
+
+                QGCButton {
+                    text:               qsTr("保存KML文件...")
+                    Layout.fillWidth:   true
+                    enabled:            !masterController.syncInProgress
+                    onClicked: {
+                        dropPanel.hide()
+                        masterController.saveKmlToSelectedFile()
                     }
                 }
             }

@@ -712,7 +712,8 @@ void SurveyMissionItem::_generateGrid(void)
     polygonPoints = _convexPolygon(polygonPoints);
 
     double coveredArea = 0.0;
-    for (int i=0; i<polygonPoints.count(); i++) {
+	
+    for (int i=0; i<polygonPoints.count(); i++) {          //G201710241281 ChenYang 统计面积
         if (i != 0) {
             coveredArea += polygonPoints[i - 1].x() * polygonPoints[i].y() - polygonPoints[i].x() * polygonPoints[i -1].y();
         } else {
@@ -746,8 +747,30 @@ void SurveyMissionItem::_generateGrid(void)
     }
     _setSurveyDistance(surveyDistance);
 
+
+#ifdef Heading_Dynamicxxx
+	// Calc survey fight line angle        //G201710241281 ChenYang 
+    double surveyAngle = 0.0;
+	double surveyAngleX = 0.0;
+	double surveyAngleY = 0.0;
+
+    for (int i=1; i<polygonPoints.count(); i++)
+		{         
+		     surveyAngleX= polygonPoints[i].x() - polygonPoints[i-1].x() 
+			 surveyAngleY= polygonPoints[i].y() - polygonPoints[i-1].y();
+      
+        if (surveyAngleX+surveyAngleY>20) { //G201710241281 ChenYang 长边才计算
+//		gridAngle = _gridAngleFact.rawValue().toDouble();
+		break;	
+       } 
+    }
+//    _setSurveyDistance(surveyDistance);
+#endif
+
     if (cameraShots == 0 && _triggerCamera()) {
-        cameraShots = (int)ceil(surveyDistance / _triggerDistance());
+        cameraShots = (int)floor(surveyDistance / _triggerDistance());
+        // Take into account immediate camera trigger at waypoint entry
+        cameraShots++;
     }
     _setCameraShots(cameraShots);
 
@@ -1065,7 +1088,9 @@ int SurveyMissionItem::_gridGenerator(const QList<QPointF>& polygonPoints,  QLis
     // Calc camera shots here if there are no images in turnaround
     if (_triggerCamera() && !_imagesEverywhere()) {
         for (int i=0; i<resultLines.count(); i++) {
-            cameraShots += (int)ceil(resultLines[i].length() / _triggerDistance());
+            cameraShots += (int)floor(resultLines[i].length() / _triggerDistance());
+            // Take into account immediate camera trigger at waypoint entry
+            cameraShots++;
         }
     }
 
@@ -1116,6 +1141,9 @@ int SurveyMissionItem::_gridGenerator(const QList<QPointF>& polygonPoints,  QLis
 
     return cameraShots;
 }
+#ifdef AgriTrigger_TOCamera
+bool trunline = false;
+#endif
 
 int SurveyMissionItem::_appendWaypointToMission(QList<MissionItem*>& items, int seqNum, QGeoCoordinate& coord, CameraTriggerCode cameraTrigger, QObject* missionItemParent)
 {
@@ -1123,13 +1151,23 @@ int SurveyMissionItem::_appendWaypointToMission(QList<MissionItem*>& items, int 
     bool    altitudeRelative =  _gridAltitudeRelativeFact.rawValue().toBool();
 
     qCDebug(SurveyMissionItemLog) << "_appendWaypointToMission seq:trigger" << seqNum << (cameraTrigger != CameraTriggerNone);
+#ifdef Heading_Dynamic
+double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
+#endif
 
     MissionItem* item = new MissionItem(seqNum++,
                                         MAV_CMD_NAV_WAYPOINT,
                                         altitudeRelative ? MAV_FRAME_GLOBAL_RELATIVE_ALT : MAV_FRAME_GLOBAL,
                                         cameraTrigger == CameraTriggerHoverAndCapture ? _hoverAndCaptureDelaySeconds : 0,  // Hold time (delay for hover and capture to settle vehicle before image is taken)
-                                        0.0, 0.0,
-                                        std::numeric_limits<double>::quiet_NaN(),   // Yaw unchanged
+                                        0.0, 
+                                        0.0,
+                                        
+//Start G201710131281 ChenYang   change Yaw 
+#ifdef Heading_Dynamic
+									gridlineAngle,
+#else                                        
+                                    std::numeric_limits<double>::quiet_NaN(),//G201710131281 ChenYang  Yaw unchanged
+#endif
                                         coord.latitude(),
                                         coord.longitude(),
                                         altitude,
@@ -1222,14 +1260,25 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
         const QList<QGeoCoordinate>& segment = transectSegments[segmentIndex];
 
         qCDebug(SurveyMissionItemLog) << "segment.count" << segment.count();
+#ifdef AgriTrigger_TOCamera
+					 trunline=false;
+#endif
 
         if (_hasTurnaround()) {
             // Add entry turnaround point
             if (!_nextTransectCoord(segment, pointIndex++, coord)) {
                 return false;
             }
-            seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? CameraTriggerOn : CameraTriggerNone, missionItemParent);
+#ifdef AgriTrigger_TOCamera
+		 trunline=true;
+#endif			
+//            seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? CameraTriggerOn : CameraTriggerNone, missionItemParent);
+			seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? CameraTriggerOn : CameraTriggerNone, missionItemParent);
             firstWaypointTrigger = false;
+#ifdef AgriTrigger_TOCamera
+					 trunline=false;
+#endif	
+
         }
 
         // Add polygon entry point

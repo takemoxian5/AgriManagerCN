@@ -94,7 +94,7 @@ Item {
         interactive:        _missionItem.isCurrentItem
         borderWidth:        1
         borderColor:        "black"
-        interiorColor:      "green"
+        interiorColor:      "grey"//"green"
         interiorOpacity:    0.5
     }
 
@@ -122,7 +122,7 @@ Item {
 
             sourceItem: MissionItemIndexLabel {
                 index:      _missionItem.sequenceNumber
-                label:      "Entry"
+                label:      "起点"
                 checked:    _missionItem.isCurrentItem
                 onClicked:  _root.clicked(_missionItem.sequenceNumber)
             }
@@ -142,7 +142,7 @@ Item {
 
             sourceItem: MissionItemIndexLabel {
                 index:      _missionItem.lastSequenceNumber
-                label:      "Exit"
+                label:      "终点"
                 checked:    _missionItem.isCurrentItem
                 onClicked:  _root.clicked(_missionItem.sequenceNumber)
             }

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -539,12 +539,12 @@ void PX4FirmwarePlugin::_handleAutopilotVersion(Vehicle* vehicle, mavlink_messag
 
 bool PX4FirmwarePlugin::vehicleYawsToNextWaypointInMission(const Vehicle* vehicle) const
 {
-    if (vehicle->isOfflineEditingVehicle()) {
+    if (vehicle->isOfflineEditingVehicle()) {              //G201710191281 ChenYang 离线编辑状态
         return FirmwarePlugin::vehicleYawsToNextWaypointInMission(vehicle);
-    } else {
+    } else {  // 多旋翼下 存在MIS_YAWMODE 模式时 对yawMode  初始化
         if (vehicle->multiRotor() && vehicle->parameterManager()->parameterExists(FactSystem::defaultComponentId, QStringLiteral("MIS_YAWMODE"))) {
             Fact* yawMode = vehicle->parameterManager()->getParameter(FactSystem::defaultComponentId, QStringLiteral("MIS_YAWMODE"));
-            return yawMode && yawMode->rawValue().toInt() == 1;
+            return yawMode && yawMode->rawValue().toInt() == 0;//0 set by wp， 1 toward wp
         }
     }
     return true;

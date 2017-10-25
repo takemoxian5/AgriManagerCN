@@ -461,7 +461,7 @@ void SimpleMissionItem::_rebuildNaNFacts(void)
                     firmwareVehicle = _vehicle;
                 }
                 bool hideWaypointHeading = (command == MAV_CMD_NAV_WAYPOINT || command == MAV_CMD_NAV_TAKEOFF) && (i == 4) && firmwareVehicle->firmwarePlugin()->vehicleYawsToNextWaypointInMission(firmwareVehicle);
-                if (hideWaypointHeading) {
+                if (hideWaypointHeading) {  //G201710191281 ChenYang  不需要改变航向，跳过对param4 设置
                     continue;
                 }
 
@@ -645,7 +645,7 @@ void SimpleMissionItem::setDefaultsForCommand(void)
 
     case MAV_CMD_NAV_LAND:
     case MAV_CMD_NAV_VTOL_LAND:
-        _missionItem.setParam7(0);
+        _missionItem.setParam7(0);    //设置高度
         break;
     default:
         break;

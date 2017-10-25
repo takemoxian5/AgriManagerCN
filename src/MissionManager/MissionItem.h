@@ -33,6 +33,13 @@ class MissionController;
     class MissionItemTest;
 #endif
 
+
+
+ //#define Add_AgriSection      //G201710111282 ChenYang Ìí¼ÓAgriSection  Ä£¿é
+//#define AgriTrigger_TOCamera
+#define Heading_Dynamic
+
+
 // Represents a Mavlink mission command.
 class MissionItem : public QObject
 {

@@ -13,6 +13,10 @@ import QGroundControl.FactControls  1.0
 import QGroundControl.Palette       1.0
 import QGroundControl.FlightMap     1.0
 
+
+import QGroundControl.SettingsManager   1.0
+import QGroundControl.Controllers       1.0
+
 // Editor for Survery mission items
 Rectangle {
     id:         _root
@@ -271,6 +275,7 @@ Rectangle {
                         }
                     }
                 }
+				
 
                 FactTextField {
                     id:                 cameraTriggerDistanceField
@@ -739,12 +744,12 @@ Rectangle {
                         //                        visible: 			   _vehicle.fixedWing
 
                         onClicked: {
-                            windRosePie.angle = Number(agriAngleText.text)
+                            windRosePie.angle = Number(tempangleText.text)
 
                             //                                                        var cords =QGroundControl.flightMapPosition// windRoseButton.mapToItem(_root, 0, 0)
                             //                                                        windRosePie.popup(cords.x , cords.y )//+ windRoseButton.height / 2)+ windRoseButton.width / 2
-                            var cords = windRoseButton.mapToItem(_root, 0, 0)
-                            windRosePie.popup(cords.x + windRoseButton.width / 2, cords.y + windRoseButton.height / 2)
+                            var cords = agriwindRoseButton.mapToItem(_root, 0, 0)
+                            windRosePie.popup(cords.x + agriwindRoseButton.width / 2, cords.y + agriwindRoseButton.height / 2)
                         }
                     }
                 }
@@ -768,6 +773,25 @@ Rectangle {
                     Layout.columnSpan:  2
                 }
                 //End G201710111285 ChenYang
+                QGCCheckBox {
+					text:		qsTr("结束返航")
+					checked:	missionItem.missionEndRTL
+					onClicked:	missionItem.missionEndRTL = checked
+                    Layout.columnSpan:  2
+                }
+//				Column {
+//						anchors.left:	parent.left
+//						anchors.right:	parent.right
+//						spacing:		_margin
+//						QGCCheckBox {
+//							text:		qsTr("结束返航")
+//							checked:	missionItem.missionEndRTL
+//							onClicked:	missionItem.missionEndRTL = checked
+//						}
+//					}
+//				}
+
+				
                 QGCLabel { text: qsTr("转弯距离") }
                 FactTextField {
                     fact:				   missionItem.turnaroundDist
@@ -819,27 +843,32 @@ Rectangle {
                     //				   fact:			   QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
                     Layout.fillWidth:   true
                 }
-                QGCRadioButton {
-                    id:					   agrifixedGroundResolutionRadio
-                    text:				   qsTr("固定速度")
-                    //                    checked: 			   !missionItem.fixedValueIsAltitude.value
-                    exclusiveGroup:		   fixedValueGroup
-                    //                    onClicked:			   missionItem.fixedValueIsAltitude.value = 0
-                    //                    visible:    !_missionVehicle.vtol
-                    checked:    missionItem.speedSection.specifyFlightSpeed
-                    onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
-                }
-                //                FactTextField {
-                //                    fact:				   missionItem.groundResolution
-                //                    enabled: 			   agrifixedGroundResolutionRadio.checked
-                //                    Layout.fillWidth:	   true
-                //                }
-                FactTextField {
+				 QGCCheckBox {
+                        id:         agriflightSpeedCheckBox
+                        text:       qsTr("飞行速度")
+                        visible:    !_missionVehicle.vtol
+                        checked:    missionItem.speedSection.specifyFlightSpeed
+                        onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
+                    }
+                    FactTextField {
+                        Layout.fillWidth:   true
+                        fact:               missionItem.speedSection.flightSpeed
+                        visible:            agriflightSpeedCheckBox.visible
+                        enabled:            agriflightSpeedCheckBox.checked
+                    }
+//                QGCRadioButton {
+//                    id:					   agrifixedGroundResolutionRadio
+//                    text:				   qsTr("固定速度")
+//                    checked:    missionItem.speedSection.specifyFlightSpeed
+//                    onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
+//                }
+//                FactTextField {
+//                    Layout.fillWidth:   true
+//                    fact:               missionItem.speedSection.flightSpeed
+////					visible:			agrifixedGroundResolutionRadio.visible
+////					enabled:			agrifixedGroundResolutionRadio.checked	
 
-                    fact:               missionItem.speedSection.flightSpeed
-                    enabled:            agrifixedGroundResolutionRadio.checked
-                    Layout.fillWidth:   true
-                }
+//                }
             }
         }
 
@@ -852,7 +881,6 @@ Rectangle {
             text:       qsTr("网格")
             visible:    gridTypeCombo.currentIndex == _gridTypeManual
         }
-
         GridLayout {
             anchors.left:   parent.left
             anchors.right:  parent.right
@@ -908,16 +936,39 @@ Rectangle {
                 fact:                   missionItem.turnaroundDist
                 Layout.fillWidth:       true
             }
-            QGCLabel { text: qsTr("入口") }
+            QGCLabel {
+                text: qsTr("入口")
+                visible: !windRoseButton.visible
+            }
             FactComboBox {
+                id: gridAngleBox
                 fact:                   missionItem.gridEntryLocation
+                visible:                !windRoseButton.visible
                 indexModel:             false
                 Layout.fillWidth:       true
             }
 
+            FactCheckBox {
+                text:               qsTr("允许悬停和捕捉图像")
+                fact:               missionItem.hoverAndCapture
+                visible:            missionItem.hoverAndCaptureAllowed
+                Layout.columnSpan:  2
+                onClicked: {
+                    if (checked) {
+                        missionItem.cameraTriggerInTurnaround.rawValue = false
+                    }
+                }
+            }
+
+            FactCheckBox {
+                text:               qsTr("转弯处拍照")
+                fact:               missionItem.cameraTriggerInTurnaround
+                enabled:            !missionItem.hoverAndCapture.rawValue
+                Layout.columnSpan:  2
+            }
 
             QGCCheckBox {
-                text:               qsTr("90度偏转")
+                text:               qsTr("添加垂直扫描")
                 checked:            missionItem.refly90Degrees
                 onClicked:          missionItem.refly90Degrees = checked
                 Layout.columnSpan:  2
