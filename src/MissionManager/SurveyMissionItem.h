@@ -57,6 +57,9 @@ public:
     Q_PROPERTY(QVariantList         gridPoints                  READ gridPoints                     NOTIFY gridPointsChanged)
     Q_PROPERTY(int                  cameraShots                 READ cameraShots                    NOTIFY cameraShotsChanged)
     Q_PROPERTY(double               coveredArea                 READ coveredArea                    NOTIFY coveredAreaChanged)
+#ifdef Agri_SprayPWM
+			Q_PROPERTY(Fact*				agriSprayPWM				READ agriSprayPWM				  CONSTANT)
+#endif
 
     Q_PROPERTY(QGCMapPolygon*       mapPolygon                  READ mapPolygon                     CONSTANT)
 
@@ -74,6 +77,14 @@ public:
     Fact* hoverAndCapture           (void) { return &_hoverAndCaptureFact; }
     Fact* groundResolution          (void) { return &_groundResolutionFact; }
     Fact* frontalOverlap            (void) { return &_frontalOverlapFact; }
+
+#ifdef Agri_SprayPWM 
+    Fact* agriSprayPWM            (void) { return &_agriSprayPWMFact; }
+#endif
+
+	
+
+	
     Fact* sideOverlap               (void) { return &_sideOverlapFact; }
     Fact* cameraSensorWidth         (void) { return &_cameraSensorWidthFact; }
     Fact* cameraSensorHeight        (void) { return &_cameraSensorHeightFact; }
@@ -187,6 +198,16 @@ private:
         CameraTriggerOn,
         CameraTriggerOff,
         CameraTriggerHoverAndCapture
+#ifdef AgriTrigger_TOCamera
+			//Start G201710131281 ChenYang	
+						,
+						AgriTriggerNone,
+						AgriTriggerOn,
+						AgriTriggerOff,
+						AgriTriggerHoverAndCapture
+			//End G201710131281 ChenYang 
+#endif
+        
     };
 
     void _setExitCoordinate(const QGeoCoordinate& coordinate);
@@ -205,6 +226,10 @@ private:
     bool _nextTransectCoord(const QList<QGeoCoordinate>& transectPoints, int pointIndex, QGeoCoordinate& coord);
     double _triggerDistance(void) const;
     bool _triggerCamera(void) const;
+	
+#ifdef AgriTrigger_TOCamera
+    bool _triggerAgri(void) const;
+#endif
     bool _imagesEverywhere(void) const;
     bool _hoverAndCaptureEnabled(void) const;
     bool _hasTurnaround(void) const;
@@ -258,6 +283,9 @@ private:
     SettingsFact    _hoverAndCaptureFact;
     SettingsFact    _groundResolutionFact;
     SettingsFact    _frontalOverlapFact;
+#ifdef Agri_SprayPWM
+    SettingsFact    _agriSprayPWMFact;
+#endif
     SettingsFact    _sideOverlapFact;
     SettingsFact    _cameraSensorWidthFact;
     SettingsFact    _cameraSensorHeightFact;

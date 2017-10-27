@@ -84,6 +84,9 @@ Rectangle {
         var groundResolution= missionItem.groundResolution.rawValue
         var frontalOverlap  = missionItem.frontalOverlap.rawValue
         var sideOverlap     = missionItem.sideOverlap.rawValue
+        // Agri_SprayPWM
+		var agriSprayPWM	= missionItem.agriSprayPWM.rawValue
+
 
         if (focalLength <= 0 || sensorWidth <= 0 || sensorHeight <= 0 || imageWidth <= 0 || imageHeight <= 0 || groundResolution <= 0) {
             return
@@ -109,6 +112,9 @@ Rectangle {
         }
 
         gridSpacing = imageSizeSideGround * ( (100-sideOverlap) / 100 )
+// Agri_SprayPWM
+        agriSprayPWM = 1000+gridSpacing *40;//G201710261281 ChenYang  喷幅与强度关系 待调整
+		if(agriSprayPWM>2000)agriSprayPWM=2000;
         cameraTriggerDistance = imageSizeFrontGround * ( (100-frontalOverlap) / 100 )
 
         if (missionItem.fixedValueIsAltitude.value) {
@@ -620,13 +626,14 @@ Rectangle {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
                     spacing: 	   _margin
-                    QGCLabel { text: qsTr("5米喷幅")
+                    QGCLabel { text: qsTr("喷幅(高度5m)")
                         Layout.fillWidth: true
                     }
                     FactTextField {
                         fact:					missionItem.gridSpacing
                         Layout.fillWidth:		true
                     }
+
                     //                    FactTextField {
                     //                        Layout.preferredWidth:  _root._fieldWidth
                     //                        fact:				   missionItem.cameraResolutionWidth
@@ -636,7 +643,20 @@ Rectangle {
                     //                        fact:				   missionItem.cameraResolutionHeight
                     //                    }
                 }
+				RowLayout {
+					   anchors.left:   parent.left
+					   anchors.right:  parent.right
+					   spacing: 	  _margin
 
+									QGCLabel {
+									text: qsTr("喷洒强度")
+									}
+								FactTextField {
+				//					  id:				   agriSprayPWM
+									fact:			   missionItem.agriSprayPWM/2000 + " " + qsTr("%")
+									Layout.fillWidth:	true
+								}
+					}
                 //                RowLayout {
                 //                    anchors.left:   parent.left
                 //                    anchors.right:  parent.right
@@ -688,7 +708,7 @@ Rectangle {
                     fact:				   missionItem.sideOverlap
                 }
             }
-
+			
             FactCheckBox {
                 text:	   qsTr("允许悬停")
                 fact:	   missionItem.hoverAndCapture
@@ -843,19 +863,19 @@ Rectangle {
                     //				   fact:			   QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
                     Layout.fillWidth:   true
                 }
-				 QGCCheckBox {
-                        id:         agriflightSpeedCheckBox
-                        text:       qsTr("飞行速度")
-                        visible:    !_missionVehicle.vtol
-                        checked:    missionItem.speedSection.specifyFlightSpeed
-                        onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
-                    }
-                    FactTextField {
-                        Layout.fillWidth:   true
-                        fact:               missionItem.speedSection.flightSpeed
-                        visible:            agriflightSpeedCheckBox.visible
-                        enabled:            agriflightSpeedCheckBox.checked
-                    }
+//				 QGCCheckBox {
+//                        id:         agriflightSpeedCheckBox
+//                        text:       qsTr("飞行速度")
+//                        visible:    !_missionVehicle.vtol
+//                        checked:    missionItem.speedSection.specifyFlightSpeed
+//                        onClicked:   missionItem.speedSection.specifyFlightSpeed = checked
+//                    }
+//                    FactTextField {
+//                        Layout.fillWidth:   true
+//                        fact:               missionItem.speedSection.flightSpeed
+////                        visible:            agriflightSpeedCheckBox.visible
+////                        enabled:            agriflightSpeedCheckBox.checked
+//                    }
 //                QGCRadioButton {
 //                    id:					   agrifixedGroundResolutionRadio
 //                    text:				   qsTr("固定速度")
@@ -867,7 +887,6 @@ Rectangle {
 //                    fact:               missionItem.speedSection.flightSpeed
 ////					visible:			agrifixedGroundResolutionRadio.visible
 ////					enabled:			agrifixedGroundResolutionRadio.checked	
-
 //                }
             }
         }
@@ -1036,19 +1055,32 @@ Rectangle {
             //G201709261286 ChenYang  显示精度修改
             QGCLabel {
                 text: {
-                    var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)
-                    var squaretempH = (squaretemp/1000)
-                    squaretemp=squaretemp%1000+0.4 //偏小0.4
-                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
-                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
-                        //                                     if(squaretemp.toFixed(0)==1000 ){
-                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
-                        //                                     }
-                        //无进位
-                        return  (squaretempH-0.6).toFixed(0)+ ", "+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
-                    }
-                    //进位
-                    return squaretempH.toFixed(0)+ ", " +"000.0"+ " "+ QGroundControl.appSettingsAreaUnitsString
+                    var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)+0.4
+						if(squaretemp<0)squaretemp=-1*squaretemp;
+						qDebug()<<squaretemp;
+
+//					var squaretempH =  (squaretemp/1000);
+////					  squaretempH=fabs((squaretempH).toFixed(0));
+//                   if(squaretempH<0)squaretempH=-1*squaretempH;
+//                    squaretemp=squaretemp%1000 //偏小0.4
+//                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
+//                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
+//                        //                                     if(squaretemp.toFixed(0)==1000 ){
+//                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
+//                        //                                     }
+//                        //无进位
+//                       
+//                        if(squaretemp>100)
+//                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+//						else if(squaretemp>10)	
+//					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+//						else if(squaretemp>1)
+//						return	(squaretempH).toFixed(0)+ ",00"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+
+//					}
+//                    //进位
+//                     return squaretempH.toFixed(0)+ ", " +"000.0"+ " "+ QGroundControl.appSettingsAreaUnitsString
+                     return squaretempH.toFixed(0)+   QGroundControl.appSettingsAreaUnitsString
                 }
             }
             QGCLabel { text: qsTr("拍照数量") }

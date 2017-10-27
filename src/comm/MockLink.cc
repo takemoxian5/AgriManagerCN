@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -846,6 +846,10 @@ void MockLink::_handleCommandLong(const mavlink_message_t& msg)
             firstCmdUser4 = true;
             commandResult = MAV_RESULT_FAILED;
         }
+        break;
+    case MAV_CMD_DO_SET_SERVO:
+        // Test command which always returns MAV_RESULT_FAILED
+       commandResult = MAV_RESULT_ACCEPTED;
         break;
     case MAV_CMD_USER_5:
         // No response

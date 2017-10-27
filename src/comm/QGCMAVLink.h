@@ -23,6 +23,10 @@
 #include <mavlink_types.h>
 extern mavlink_status_t m_mavlink_status[MAVLINK_COMM_NUM_BUFFERS];
 #include <mavlink.h>
+ //#define Add_AgriSection      //G201710111282 ChenYang 添加AgriSection  模块
+#define AgriTrigger_TOCamera
+#define Heading_Dynamic
+#define Agri_SprayPWM
 
 class QGCMAVLink {
 public:

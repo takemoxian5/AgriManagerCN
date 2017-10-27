@@ -41,7 +41,7 @@ QGCFlickable {
         QGCLabel {
             anchors.horizontalCenter:   parent.horizontalCenter
             color:                      textColor
-            text:                       qsTr("相机控制")
+            text:                       qsTr("功能测试")
         }
 
         QGCButton {
@@ -50,5 +50,12 @@ QGCFlickable {
             onClicked:                  _activeVehicle.triggerCamera()
             enabled:                    _activeVehicle
         }
+	    QGCButton {
+            anchors.horizontalCenter:   parent.horizontalCenter
+            text:                       qsTr("喷头触发")
+            onClicked:                  _activeVehicle.triggerAgri()
+            enabled:                    _activeVehicle
+        }
     }
+	
 }

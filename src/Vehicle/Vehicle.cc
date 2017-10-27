@@ -2435,6 +2435,27 @@ void Vehicle::setOfflineEditingDefaultComponentId(int defaultComponentId)
 
 void Vehicle::triggerCamera(void)
 {
+#ifdef AgriTrigger_TOCamera
+//		vehicle->sendMavCommand(vehicle->defaultComponentId(),
+//								MAV_CMD_DO_REPOSITION,
+//								true,	// show error if failed
+//								-1.0f,
+//								MAV_DO_REPOSITION_FLAGS_CHANGE_MODE,
+//								0.0f,
+//								NAN,
+//								NAN,
+//								NAN,
+//								NAN);
+		sendMavCommand(_defaultComponentId,
+					   MAV_CMD_DO_SET_SERVO,
+					   true,							// show errors
+					   2, 
+					   1500,
+					    NAN, NAN, NAN, NAN, NAN						// param 3-7 unused
+					 ); 						   // test shot flag
+#endif
+
+#ifdef AgriTrigger_TOCamera2
     sendMavCommand(_defaultComponentId,
                    MAV_CMD_DO_DIGICAM_CONTROL,
                    true,                            // show errors
@@ -2442,7 +2463,44 @@ void Vehicle::triggerCamera(void)
                    1.0,                             // trigger camera
                    0.0,                             // param 6 unused
                    1.0);                            // test shot flag
+#endif
 }
+#if 1//def AgriTrigger_TOCamera
+void Vehicle::triggerAgri(void)
+{
+//    sendMavCommand(_defaultComponentId,
+//  //                            MAV_CMD_DO_REPOSITION,
+////                            true,   // show error is fails
+////                            -1.0f,
+//			MAV_CMD_DO_SET_SERVO
+//                   1500, 
+//                   NAN, NAN, NAN, NAN, NAN           				// param 3-7 unused
+//                 ); 
+
+#ifdef AgriTrigger_TOCamera
+    sendMavCommand(MAV_COMP_ID_SERVO1,
+                   MAV_CMD_DO_SET_SERVO,
+                   true,                            // show errors
+                   1, 
+                   1500, 
+                   NAN, NAN, NAN, NAN, NAN           				// param 3-7 unused
+                 );                            // test shot flag
+#endif
+//                                                               0, 0, 0, 0, 0,       // param 2-7 unused
+//                                            true,                   // autoContinue
+//                                            false,                  // isCurrentItem
+//                                            (vehicle->defaultComponentId(),
+//                            MAV_CMD_DO_REPOSITION,
+//                            true,   // show error is fails
+//                            -1.0f,
+//                            MAV_DO_REPOSITION_FLAGS_CHANGE_MODE,
+//                            0.0f,
+//                            NAN,
+//                            NAN,
+//                            NAN,
+//                            vehicle->homePosition().altitude() + newAltRel);
+}
+#endif
 
 const char* VehicleGPSFactGroup::_hdopFactName =                "hdop";
 const char* VehicleGPSFactGroup::_vdopFactName =                "vdop";

@@ -1203,19 +1203,24 @@ double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
                                false,                       // isCurrentItem
                                missionItemParent);
         items.append(item);
-#if 0
-        // This generates too many commands. Pulling out for now, to see if image quality is still high enough.
+		 break;
+#ifdef AgriTrigger_TOCamera
+		case AgriTriggerOff:
+		case AgriTriggerOn:
         item = new MissionItem(seqNum++,
-                               MAV_CMD_NAV_DELAY,
-                               MAV_FRAME_MISSION,
-                               0.5,                // Delay in seconds, give some time for image to be taken
-                               -1, -1, -1,         // No time
-                               0, 0, 0,            // Param 5-7 unused
-                               true,               // autoContinue
-                               false,              // isCurrentItem
-                               missionItemParent);
+			MAV_CMD_DO_SET_SERVO,
+			MAV_FRAME_MISSION,
+			1,							 //|Servo number|
+			cameraTrigger == AgriTriggerOn ?1500 : 1000,						 // PWM (microseconds, 1000 to 2000 typical)|
+			NAN,						   
+			NAN, NAN, NAN, NAN, 		 // param 4-7 reserved
+			true,						 // autoContinue
+			false,						 // isCurrentItem
+			missionItemParent);
+
         items.append(item);
-#endif
+		 break;
+#endif  //end of AgriTrigger_TOCamera
     default:
         break;
     }
@@ -1286,10 +1291,11 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
             return false;
         }
         if (firstWaypointTrigger) {
-            cameraTrigger = CameraTriggerOn;
+            cameraTrigger =AgriTriggerOn;// CameraTriggerOn;
         } else {
             cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? CameraTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : CameraTriggerOn);
-        }
+			cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? AgriTriggerOff : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : AgriTriggerOn);
+		}
         seqNum = _appendWaypointToMission(items, seqNum, coord, cameraTrigger, missionItemParent);
         firstWaypointTrigger = false;
 
@@ -1317,7 +1323,8 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
             if (!_nextTransectCoord(segment, pointIndex++, coord)) {
                 return false;
             }
-            seqNum = _appendWaypointToMission(items, seqNum, coord, CameraTriggerNone, missionItemParent);
+	     seqNum = _appendWaypointToMission(items, seqNum, coord, AgriTriggerOff, missionItemParent);
+//            seqNum = _appendWaypointToMission(items, seqNum, coord, CameraTriggerNone, missionItemParent);
         }
 
         qCDebug(SurveyMissionItemLog) << "last PointIndex" << pointIndex;
@@ -1326,10 +1333,19 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
     if (((hasRefly && buildRefly) || !hasRefly) && _imagesEverywhere()) {
         // Turn off camera at end of survey
         MissionItem* item = new MissionItem(seqNum++,
+#ifdef AgriTrigger_TOCamera
+											MAV_CMD_DO_SET_SERVO,//	?MAV_CMD_DO_SET_SERVO:MAV_CMD_DO_SET_CAM_TRIGG_DIST,
+											MAV_FRAME_MISSION,
+											1,							 //|Servo number|
+											1100,						 // PWM (microseconds, 1000 to 2000 typical)|
+#else
                                             MAV_CMD_DO_SET_CAM_TRIGG_DIST,
+
                                             MAV_FRAME_MISSION,
                                             0.0,                    // trigger distance (off)
-                                            0, 0, 0, 0, 0, 0,       // param 2-7 unused
+                                            0,
+#endif                                            
+                                            0, 0, 0, 0, 0,       // param 2-7 unused
                                             true,                   // autoContinue
                                             false,                  // isCurrentItem
                                             missionItemParent);
