@@ -31,7 +31,7 @@ Rectangle {
 
     property real   _margin:            ScreenTools.defaultFontPixelWidth / 2
     property int    _cameraIndex:       1
-    property real   _fieldWidth:        ScreenTools.defaultFontPixelWidth * 10.5
+    property real   _fieldWidth:        ScreenTools.defaultFontPixelWidth *10.5
     property var    _cameraList:        [ qsTr("植保设置"), qsTr("航拍通用设置"), qsTr("自用相机设置") ]
     property var    _vehicle:           QGroundControl.multiVehicleManager.activeVehicle ? QGroundControl.multiVehicleManager.activeVehicle : QGroundControl.multiVehicleManager.offlineEditingVehicle
     property var    _vehicleCameraList: _vehicle.cameraList
@@ -112,9 +112,9 @@ Rectangle {
         }
 
         gridSpacing = imageSizeSideGround * ( (100-sideOverlap) / 100 )
-// Agri_SprayPWM
-        agriSprayPWM = 1000+gridSpacing *40;//G201710261281 ChenYang  喷幅与强度关系 待调整
-		if(agriSprayPWM>2000)agriSprayPWM=2000;
+// addAgri_SprayPWM
+        agriSprayPWM =  gridSpacing *40/1000;//G201710261281 ChenYang  喷幅与强度关系 待调整
+		if(agriSprayPWM>100)agriSprayPWM=100;
         cameraTriggerDistance = imageSizeFrontGround * ( (100-frontalOverlap) / 100 )
 
         if (missionItem.fixedValueIsAltitude.value) {
@@ -123,6 +123,8 @@ Rectangle {
             missionItem.gridAltitude.rawValue = altitude
         }
         missionItem.gridSpacing.rawValue = gridSpacing
+// addAgri_SprayPWM  
+        missionItem.agriSprayPWM.rawValue=agriSprayPWM
         missionItem.cameraTriggerDistance.rawValue = cameraTriggerDistance
     }
 
@@ -631,7 +633,7 @@ Rectangle {
                     }
                     FactTextField {
                         fact:					missionItem.gridSpacing
-                        Layout.fillWidth:		true
+                        Layout.preferredWidth:  _root._fieldWidth
                     }
 
                     //                    FactTextField {
@@ -643,38 +645,22 @@ Rectangle {
                     //                        fact:				   missionItem.cameraResolutionHeight
                     //                    }
                 }
-				RowLayout {
-					   anchors.left:   parent.left
-					   anchors.right:  parent.right
-					   spacing: 	  _margin
+                RowLayout {
+					anchors.left:	parent.left
+					anchors.right:	parent.right
+					spacing:	   _margin
+					Item { Layout.fillWidth: true }
 
 									QGCLabel {
 									text: qsTr("喷洒强度")
+								 	Layout.fillWidth: true
 									}
-								FactTextField {
+									FactTextField {
 				//					  id:				   agriSprayPWM
-									fact:			   missionItem.agriSprayPWM/2000 + " " + qsTr("%")
-									Layout.fillWidth:	true
+                                    fact:			missionItem.agriSprayPWM//-1000)/1000 + " " + qsTr("%")
+									Layout.preferredWidth:  _root._fieldWidth
 								}
-					}
-                //                RowLayout {
-                //                    anchors.left:   parent.left
-                //                    anchors.right:  parent.right
-                //                    spacing: 	   _margin
-                //                    QGCLabel {
-                //                        text:				   qsTr("10米喷幅")
-                //                        Layout.fillWidth:	   true
-                //                    }
-                //                    FactTextField {
-                //                        Layout.preferredWidth:  _root._fieldWidth
-                //                        fact:				   missionItem.cameraResolutionHeight
-                //                    }
-                //				    FactTextField {
-                //					   Layout.preferredWidth:  _root._fieldWidth
-                //					   fact:				   missionItem.cameraFocalLength
-                //				   }
-                //                }
-
+                    }
             }      //G201710111285 ChenYang  Column -  agri mode
 
             RowLayout {
@@ -1010,93 +996,138 @@ Rectangle {
             columnSpacing:  ScreenTools.defaultFontPixelWidth
             visible:        statsHeader.checked&&gridTypeCombo.currentIndex === _agriTypeManual
 
-            QGCLabel { text: qsTr("测量面积") }
-            //    QGCLabel { text: QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea).toFixed(2) + " " + QGroundControl.appSettingsAreaUnitsString }
-            //G201709261286 ChenYang  显示精度修改
-            QGCLabel {
-                text: {
-                    var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)
-                    var squaretempH = (squaretemp/1000)
-                    squaretemp=squaretemp%1000+0.4 //偏小0.4
-                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
-                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
-                        //                                     if(squaretemp.toFixed(0)==1000 ){
-                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
-                        //                                     }
-                        //无进位
-                        return  (squaretempH-0.6).toFixed(0)+ ", "+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
-                    }
-                    //进位
-                    return squaretempH.toFixed(0)+ ", " +"000.0"+ " "+ QGroundControl.appSettingsAreaUnitsString
-                }
-            }
-            QGCLabel { text: qsTr("预计喷洒时间") }
-            QGCLabel { text: missionItem.cameraShots/2+ qsTr("min") }
-
-            QGCLabel { text: qsTr("喷洒速度") }
-            QGCLabel {
-                text: {
-                    var timeVal = missionItem.timeBetweenShots
-                    if(!isFinite(timeVal) || missionItem.cameraShots === 0) {
-                        return qsTr("N/A")
-                    }
-                    return timeVal.toFixed(1) + " " + qsTr("m/s")
-                }
-            }
-        }
-
-        Grid {
-            columns:        2
-            columnSpacing:  ScreenTools.defaultFontPixelWidth
-            visible:        statsHeader.checked&&gridTypeCombo.currentIndex != _agriTypeManual
-
-            QGCLabel { text: qsTr("测量面积") }
+            QGCLabel { text: qsTr("作业面积") }
             //    QGCLabel { text: QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea).toFixed(2) + " " + QGroundControl.appSettingsAreaUnitsString }
             //G201709261286 ChenYang  显示精度修改
             QGCLabel {
                 text: {
                     var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)+0.4
-						if(squaretemp<0)squaretemp=-1*squaretemp;
-						qDebug()<<squaretemp;
+					var square_mu =	squaretemp/667
+				   if(squaretemp<0)squaretemp=-1*squaretemp;
+					var squaretempH =  (squaretemp/1000);
+//					  squaretempH=fabs((squaretempH).toFixed(0));
+                   if(squaretempH<0)squaretempH=-1*squaretempH;
+                    squaretemp=squaretemp%1000 //偏小0.4
+                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
+                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
+                        //                                     if(squaretemp.toFixed(0)==1000 ){
+                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
+                        //                                     }
 
-//					var squaretempH =  (squaretemp/1000);
-////					  squaretempH=fabs((squaretempH).toFixed(0));
-//                   if(squaretempH<0)squaretempH=-1*squaretempH;
-//                    squaretemp=squaretemp%1000 //偏小0.4
+						//无进位
+                        
+                        if(squaretemp>100)
+                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+						else if(squaretemp>10)	
+					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+//						else if(squaretemp>1)
+//						return	(squaretempH).toFixed(0)+ ",00"+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
+						 else  
+						 return	(squaretempH).toFixed(0)+ ",00" + squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+
+					}
+                    //进位
+    
+//                    var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)
+//                    var squaretempH = (squaretemp/1000)
+//                    squaretemp=squaretemp%1000+0.4 //偏小0.4
 //                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
 //                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
 //                        //                                     if(squaretemp.toFixed(0)==1000 ){
 //                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
 //                        //                                     }
 //                        //无进位
-//                       
-//                        if(squaretemp>100)
-//                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
-//						else if(squaretemp>10)	
-//					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
-//						else if(squaretemp>1)
-//						return	(squaretempH).toFixed(0)+ ",00"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
-
-//					}
-//                    //进位
-//                     return squaretempH.toFixed(0)+ ", " +"000.0"+ " "+ QGroundControl.appSettingsAreaUnitsString
-                     return squaretempH.toFixed(0)+   QGroundControl.appSettingsAreaUnitsString
+//                        return  (squaretempH-0.6).toFixed(0)+ ", "+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
+//                    }
+                    //进位
+                    return squaretempH.toFixed(0)+ ", " +"000"+ QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
                 }
             }
-            QGCLabel { text: qsTr("拍照数量") }
-            QGCLabel { text: missionItem.cameraShots }
-
-            QGCLabel { text: qsTr("照片时间间隔") }
+			QGCLabel { text: qsTr("作业单价") }
+            FactTextField {
+                fact:                   missionItem.gridAltitude
+                Layout.fillWidth:       true
+            }
+			QGCLabel { text: qsTr("作业总价") }
             QGCLabel {
-                text: {
-                    var timeVal = missionItem.timeBetweenShots
-                    if(!isFinite(timeVal) || missionItem.cameraShots === 0) {
-                        return qsTr("N/A")
-                    }
-                    return timeVal.toFixed(1) + " " + qsTr("秒")
-                }
-            }
+            text: 
+			{
+			            var total_price = (missionItem.coveredArea /667) *8
+						return	total_price.toFixed(2)+ qsTr(" 元") 
+			}
+				}
+			
+            QGCLabel { text: qsTr("作业时间") }
+            QGCLabel { text: (missionItem.cameraShots/2).toFixed(2)+ qsTr("min") }
+			QGCLabel { text: qsTr("喷洒药量") }
+            QGCLabel { text: (missionItem.cameraShots/3).toFixed(2)+ qsTr("升") }     //G201710301281 ChenYang 
+            QGCLabel { text: qsTr("作业架次") }
+            QGCLabel { text: (missionItem.cameraShots/45).toFixed(0)+ qsTr("次") }    //G201710301281 ChenYang   每次20升,30min一次
+
+//            QGCLabel { text: qsTr("喷洒速度") }
+//            QGCLabel {
+//                text: {
+//                    var timeVal = missionItem.timeBetweenShots
+//                    if(!isFinite(timeVal) || missionItem.cameraShots === 0) {
+//                        return qsTr("N/A")
+//                    }
+//                    return timeVal.toFixed(1) + " " + qsTr("m/s")
+//                }
+//            }
         }
+// 航拍模式
+			        Grid {
+			            columns:        2
+			            columnSpacing:  ScreenTools.defaultFontPixelWidth
+			            visible:        statsHeader.checked&&gridTypeCombo.currentIndex != _agriTypeManual
+
+			            QGCLabel { text: qsTr("测量面积") }
+			            //    QGCLabel { text: QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea).toFixed(2) + " " + QGroundControl.appSettingsAreaUnitsString }
+			            //G201709261286 ChenYang  显示精度修改
+			            QGCLabel {
+			                text: {
+			                    var squaretemp = QGroundControl.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea)+0.4
+									if(squaretemp<0)squaretemp=-1*squaretemp;
+//									qDebug()<<squaretemp;
+
+			//					var squaretempH =  (squaretemp/1000);
+			////					  squaretempH=fabs((squaretempH).toFixed(0));
+			//                   if(squaretempH<0)squaretempH=-1*squaretempH;
+			//                    squaretemp=squaretemp%1000 //偏小0.4
+			//                    if(squaretemp.toFixed(0)&&squaretemp.toFixed(0)!=1000 ){
+			//                        //高位不能四舍五入进位，只是去除小数,低位进位后为000才能真进位
+			//                        //                                     if(squaretemp.toFixed(0)==1000 ){
+			//                        //                                    return (squaretempH).toFixed(0)+ ", "+squaretemp.toFixed(0) + " "+ QGroundControl.appSettingsAreaUnitsString
+			//                        //                                     }
+			//                        //无进位
+			//                       
+			//                        if(squaretemp>100)
+			//                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+			//						else if(squaretemp>10)	
+			//					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+			//						else if(squaretemp>1)
+			//						return	(squaretempH).toFixed(0)+ ",00"+squaretemp.toPrecision(3) + " "+ QGroundControl.appSettingsAreaUnitsString
+
+			//					}
+			//                    //进位
+			//                     return squaretempH.toFixed(0)+ ", " +"000.0"+ " "+ QGroundControl.appSettingsAreaUnitsString
+                                 return squaretemp.toFixed(0)+   QGroundControl.appSettingsAreaUnitsString
+			                }
+			            }
+			            QGCLabel { text: qsTr("拍照数量") }
+			            QGCLabel { text: missionItem.cameraShots }
+
+			            QGCLabel { text: qsTr("照片时间间隔") }
+			            QGCLabel {
+			                text: {
+			                    var timeVal = missionItem.timeBetweenShots
+			                    if(!isFinite(timeVal) || missionItem.cameraShots === 0) {
+			                        return qsTr("N/A")
+			                    }
+			                    return timeVal.toFixed(1) + " " + qsTr("秒")
+			                }
+			            }
+			        }
     }
 
     QGCColoredImage {

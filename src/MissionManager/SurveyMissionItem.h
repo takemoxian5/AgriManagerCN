@@ -58,7 +58,7 @@ public:
     Q_PROPERTY(int                  cameraShots                 READ cameraShots                    NOTIFY cameraShotsChanged)
     Q_PROPERTY(double               coveredArea                 READ coveredArea                    NOTIFY coveredAreaChanged)
 #ifdef Agri_SprayPWM
-			Q_PROPERTY(Fact*				agriSprayPWM				READ agriSprayPWM				  CONSTANT)
+	Q_PROPERTY(Fact*				agriSprayPWM				READ agriSprayPWM				  CONSTANT)
 #endif
 
     Q_PROPERTY(QGCMapPolygon*       mapPolygon                  READ mapPolygon                     CONSTANT)
@@ -158,6 +158,11 @@ public:
     static const char* gridAltitudeRelativeName;
     static const char* gridAngleName;
     static const char* gridSpacingName;
+	
+#ifdef Agri_SprayPWM
+    static const char* agriSprayPWMName;
+#endif
+	
     static const char* gridEntryLocationName;
     static const char* turnaroundDistName;
     static const char* cameraTriggerDistanceName;
@@ -301,6 +306,9 @@ private:
     static const char* _jsonGridAltitudeRelativeKey;
     static const char* _jsonGridAngleKey;
     static const char* _jsonGridSpacingKey;
+#ifdef Agri_SprayPWM
+    static const char* _jsonAgriSprayPWMKey;	
+#endif
     static const char* _jsonGridEntryLocationKey;
     static const char* _jsonTurnaroundDistKey;
     static const char* _jsonCameraTriggerDistanceKey;

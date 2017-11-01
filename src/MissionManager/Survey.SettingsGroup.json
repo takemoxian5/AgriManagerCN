@@ -39,6 +39,16 @@
     "defaultValue":     30
 },
 {
+	"name": 			"AgriSprayPWM",
+	"shortDescription": "植保模式喷头喷洒强度.",
+	"type": 			"double",
+	"decimalPlaces":	0,
+	"min":				0,
+	"units":			"%",
+	"defaultValue": 	50
+},
+
+{
     "name":             "TurnaroundDist",
     "shortDescription": "在网格外增加额外的距离以增加无人机周转.",
     "type":             "double",

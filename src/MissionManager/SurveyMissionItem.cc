@@ -73,6 +73,13 @@ const char* SurveyMissionItem::cameraOrientationLandscapeName = "CameraOrientati
 const char* SurveyMissionItem::fixedValueIsAltitudeName =       "FixedValueIsAltitude";
 const char* SurveyMissionItem::cameraName =                     "Camera";
 
+#ifdef Agri_SprayPWM
+const char* SurveyMissionItem::agriSprayPWMName =                "AgriSprayPWM";
+const char* SurveyMissionItem::_jsonAgriSprayPWMKey =                "SprayPWM";
+
+#endif
+
+
 SurveyMissionItem::SurveyMissionItem(Vehicle* vehicle, QObject* parent)
     : ComplexMissionItem(vehicle, parent)
     , _sequenceNumber(0)
@@ -110,6 +117,14 @@ SurveyMissionItem::SurveyMissionItem(Vehicle* vehicle, QObject* parent)
     , _cameraOrientationLandscapeFact   (settingsGroup, _metaDataMap[cameraOrientationLandscapeName])
     , _fixedValueIsAltitudeFact         (settingsGroup, _metaDataMap[fixedValueIsAltitudeName])
     , _cameraFact                       (settingsGroup, _metaDataMap[cameraName])
+
+#ifdef Agri_SprayPWM
+	, _agriSprayPWMFact					(settingsGroup, _metaDataMap[agriSprayPWMName])
+#endif
+
+
+
+
 {
     _editorQml = "qrc:/qml/SurveyItemEditor.qml";
 
@@ -125,6 +140,10 @@ SurveyMissionItem::SurveyMissionItem(Vehicle* vehicle, QObject* parent)
     }
 
     connect(&_gridSpacingFact,                  &Fact::valueChanged,                        this, &SurveyMissionItem::_generateGrid);
+	
+#ifdef Agri_SprayPWM
+    connect(&_agriSprayPWMFact,                  &Fact::valueChanged,                        this, &SurveyMissionItem::_generateGrid);
+#endif
     connect(&_gridAngleFact,                    &Fact::valueChanged,                        this, &SurveyMissionItem::_generateGrid);
     connect(&_gridEntryLocationFact,            &Fact::valueChanged,                        this, &SurveyMissionItem::_generateGrid);
     connect(&_turnaroundDistFact,               &Fact::valueChanged,                        this, &SurveyMissionItem::_generateGrid);
@@ -235,6 +254,10 @@ void SurveyMissionItem::save(QJsonArray&  missionItems)
     gridObject[_jsonGridAltitudeRelativeKey] =  _gridAltitudeRelativeFact.rawValue().toBool();
     gridObject[_jsonGridAngleKey] =             _gridAngleFact.rawValue().toDouble();
     gridObject[_jsonGridSpacingKey] =           _gridSpacingFact.rawValue().toDouble();
+#ifdef Agri_SprayPWM
+    gridObject[_jsonAgriSprayPWMKey] =           _agriSprayPWMFact.rawValue().toDouble();
+#endif
+	
     gridObject[_jsonGridEntryLocationKey] =     _gridEntryLocationFact.rawValue().toDouble();
     gridObject[_jsonTurnaroundDistKey] =        _turnaroundDistFact.rawValue().toDouble();
 
@@ -330,6 +353,8 @@ bool SurveyMissionItem::load(const QJsonObject& complexObject, int sequenceNumbe
     _manualGridFact.setRawValue             (v2Object[_jsonManualGridKey].toBool(true));
     _fixedValueIsAltitudeFact.setRawValue   (v2Object[_jsonFixedValueIsAltitudeKey].toBool(true));
     _gridAltitudeRelativeFact.setRawValue   (v2Object[_jsonGridAltitudeRelativeKey].toBool(true));
+	
+
     _hoverAndCaptureFact.setRawValue        (v2Object[_jsonHoverAndCaptureKey].toBool(false));
 
     _refly90Degrees = v2Object[_jsonRefly90DegreesKey].toBool(false);
@@ -339,6 +364,9 @@ bool SurveyMissionItem::load(const QJsonObject& complexObject, int sequenceNumbe
         { _jsonGridAltitudeRelativeKey,         QJsonValue::Bool,   true },
         { _jsonGridAngleKey,                    QJsonValue::Double, true },
         { _jsonGridSpacingKey,                  QJsonValue::Double, true },
+#ifdef Agri_SprayPWM
+        { _jsonAgriSprayPWMKey,                  QJsonValue::Double, true },
+#endif
         { _jsonGridEntryLocationKey,            QJsonValue::Double, false },
         { _jsonTurnaroundDistKey,               QJsonValue::Double, true },
     };
@@ -349,6 +377,10 @@ bool SurveyMissionItem::load(const QJsonObject& complexObject, int sequenceNumbe
     _gridAltitudeFact.setRawValue           (gridObject[_jsonGridAltitudeKey].toDouble());
     _gridAngleFact.setRawValue              (gridObject[_jsonGridAngleKey].toDouble());
     _gridSpacingFact.setRawValue            (gridObject[_jsonGridSpacingKey].toDouble());
+ #ifdef Agri_SprayPWM
+_agriSprayPWMFact.setRawValue			(gridObject[_jsonAgriSprayPWMKey].toDouble());
+
+ #endif
     _turnaroundDistFact.setRawValue         (gridObject[_jsonTurnaroundDistKey].toDouble());
     _cameraTriggerDistanceFact.setRawValue  (v2Object[_jsonCameraTriggerDistanceKey].toDouble());
     if (gridObject.contains(_jsonGridEntryLocationKey)) {
@@ -956,6 +988,11 @@ int SurveyMissionItem::_gridGenerator(const QList<QPointF>& polygonPoints,  QLis
 
     double gridAngle = _gridAngleFact.rawValue().toDouble();
     double gridSpacing = _gridSpacingFact.rawValue().toDouble();
+#ifdef Agri_SprayPWM
+    double agriSprayPWM = _agriSprayPWMFact.rawValue().toDouble();
+qCDebug(SurveyMissionItemLog) << "agriSprayPWM"<< agriSprayPWM;
+
+#endif
 
     gridAngle = _clampGridAngle90(gridAngle);
     gridAngle += refly ? 90 : 0;
