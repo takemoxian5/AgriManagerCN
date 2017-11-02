@@ -663,20 +663,20 @@ Rectangle {
                     }
             }      //G201710111285 ChenYang  Column -  agri mode
 
-            RowLayout {
-                anchors.left:   parent.left
-                anchors.right:  parent.right
-                spacing: 	   _margin
-                Item { Layout.fillWidth: true }
-                QGCLabel {
-                    Layout.preferredWidth:  _root._fieldWidth
-                    text:				   qsTr("正面")
-                }
-                QGCLabel {
-                    Layout.preferredWidth:  _root._fieldWidth
-                    text:				   qsTr("侧面")
-                }
-            }
+//            RowLayout {
+//                anchors.left:   parent.left
+//                anchors.right:  parent.right
+//                spacing: 	   _margin
+//                Item { Layout.fillWidth: true }
+//                QGCLabel {
+//                    Layout.preferredWidth:  _root._fieldWidth
+//                    text:				   qsTr("正面")
+//                }
+//                QGCLabel {
+//                    Layout.preferredWidth:  _root._fieldWidth
+//                    text:				   qsTr("侧面")
+//                }
+//            }
 
             RowLayout {
                 anchors.left:   parent.left
@@ -685,10 +685,10 @@ Rectangle {
                 QGCLabel {
                     text: qsTr("覆盖率")
                     Layout.fillWidth: true }
-                FactTextField {
-                    Layout.preferredWidth:  _root._fieldWidth
-                    fact:				   missionItem.frontalOverlap
-                }
+//                FactTextField {           // 植保模式 只有侧面覆盖率
+//                    Layout.preferredWidth:  _root._fieldWidth
+//                    fact:				   missionItem.frontalOverlap
+//                }
                 FactTextField {
                     Layout.preferredWidth:  _root._fieldWidth
                     fact:				   missionItem.sideOverlap
