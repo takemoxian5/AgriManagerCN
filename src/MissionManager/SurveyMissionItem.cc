@@ -1248,7 +1248,7 @@ double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
 			MAV_CMD_DO_SET_SERVO,
 			MAV_FRAME_MISSION,
 			1,							 //|Servo number|
-			cameraTrigger == AgriTriggerOn ?1500 : 1000,						 // PWM (microseconds, 1000 to 2000 typical)|
+            cameraTrigger == AgriTriggerOn ? 1000+10*_agriSprayPWMFact.rawValue() .toInt(): 1000,						 // PWM (microseconds, 1000 to 2000 typical)|
 			NAN,						   
 			NAN, NAN, NAN, NAN, 		 // param 4-7 reserved
 			true,						 // autoContinue
@@ -1315,7 +1315,7 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
 		 trunline=true;
 #endif			
 //            seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? CameraTriggerOn : CameraTriggerNone, missionItemParent);
-			seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? CameraTriggerOn : CameraTriggerNone, missionItemParent);
+			seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? AgriTriggerOn : AgriTriggerNone, missionItemParent);
             firstWaypointTrigger = false;
 #ifdef AgriTrigger_TOCamera
 					 trunline=false;
@@ -1330,8 +1330,8 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
         if (firstWaypointTrigger) {
             cameraTrigger =AgriTriggerOn;// CameraTriggerOn;
         } else {
-            cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? CameraTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : CameraTriggerOn);
-			cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? AgriTriggerOff : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : AgriTriggerOn);
+            //cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? CameraTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : CameraTriggerOn);
+			cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? AgriTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerHoverAndCapture : AgriTriggerOn);
 		}
         seqNum = _appendWaypointToMission(items, seqNum, coord, cameraTrigger, missionItemParent);
         firstWaypointTrigger = false;
@@ -1352,15 +1352,16 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
         if (!_nextTransectCoord(segment, pointIndex++, coord)) {
             return false;
         }
-        cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? CameraTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerNone : CameraTriggerOff);
-        seqNum = _appendWaypointToMission(items, seqNum, coord, cameraTrigger, missionItemParent);
+//        cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? CameraTriggerNone : (_hoverAndCaptureEnabled() ? CameraTriggerNone : CameraTriggerOff);
+		cameraTrigger = _imagesEverywhere() || !_triggerCamera() ? AgriTriggerNone : (_hoverAndCaptureEnabled() ? AgriTriggerNone : AgriTriggerOff);
+		seqNum = _appendWaypointToMission(items, seqNum, coord, cameraTrigger, missionItemParent);
 
         if (_hasTurnaround()) {
             // Add exit turnaround point
             if (!_nextTransectCoord(segment, pointIndex++, coord)) {
                 return false;
             }
-	     seqNum = _appendWaypointToMission(items, seqNum, coord, AgriTriggerOff, missionItemParent);
+	     seqNum = _appendWaypointToMission(items, seqNum, coord, AgriTriggerNone, missionItemParent);
 //            seqNum = _appendWaypointToMission(items, seqNum, coord, CameraTriggerNone, missionItemParent);
         }
 
@@ -1374,7 +1375,7 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
 											MAV_CMD_DO_SET_SERVO,//	?MAV_CMD_DO_SET_SERVO:MAV_CMD_DO_SET_CAM_TRIGG_DIST,
 											MAV_FRAME_MISSION,
 											1,							 //|Servo number|
-											1100,						 // PWM (microseconds, 1000 to 2000 typical)|
+											1000,						 // PWM (microseconds, 1000 to 2000 typical)|
 #else
                                             MAV_CMD_DO_SET_CAM_TRIGG_DIST,
 

@@ -33,7 +33,7 @@ SOURCES += \
     $$PWD/QGeoMapReplyQGC.cpp \
     $$PWD/QGeoServiceProviderPluginQGC.cpp \
     $$PWD/QGeoTileFetcherQGC.cpp \
-    $$PWD/QGeoTiledMappingManagerEngineQGC.cpp \
+    $$PWD/QGeoTiledMappingManagerEngineQGC.cpp
 
 OTHER_FILES += \
     $$PWD/qgc_maps_plugin.json

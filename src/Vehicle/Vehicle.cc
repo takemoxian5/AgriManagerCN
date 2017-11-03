@@ -2465,24 +2465,16 @@ void Vehicle::triggerCamera(void)
                    1.0);                            // test shot flag
 #endif
 }
-#if 1//def AgriTrigger_TOCamera
+#ifdef AgriTrigger_TOCamera
 void Vehicle::triggerAgri(void)
 {
-//    sendMavCommand(_defaultComponentId,
-//  //                            MAV_CMD_DO_REPOSITION,
-////                            true,   // show error is fails
-////                            -1.0f,
-//			MAV_CMD_DO_SET_SERVO
-//                   1500, 
-//                   NAN, NAN, NAN, NAN, NAN           				// param 3-7 unused
-//                 ); 
 
 #ifdef AgriTrigger_TOCamera
     sendMavCommand(MAV_COMP_ID_SERVO1,
                    MAV_CMD_DO_SET_SERVO,
                    true,                            // show errors
                    1, 
-                   1500, 
+                  1500,
                    NAN, NAN, NAN, NAN, NAN           				// param 3-7 unused
                  );                            // test shot flag
 #endif

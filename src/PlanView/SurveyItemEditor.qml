@@ -649,11 +649,12 @@ Rectangle {
 					anchors.left:	parent.left
 					anchors.right:	parent.right
 					spacing:	   _margin
-					Item { Layout.fillWidth: true }
+					
 
 									QGCLabel {
 									text: qsTr("喷洒强度")
 								 	Layout.fillWidth: true
+								 	Item { Layout.fillWidth: true }
 									}
 									FactTextField {
 				//					  id:				   agriSprayPWM
@@ -678,22 +679,22 @@ Rectangle {
 //                }
 //            }
 
-            RowLayout {
-                anchors.left:   parent.left
-                anchors.right:  parent.right
-                spacing: 	   _margin
-                QGCLabel {
-                    text: qsTr("覆盖率")
-                    Layout.fillWidth: true }
-//                FactTextField {           // 植保模式 只有侧面覆盖率
+//            RowLayout {
+//                anchors.left:   parent.left
+//                anchors.right:  parent.right
+//                spacing: 	   _margin
+//                QGCLabel {
+//                    text: qsTr("覆盖率")
+//                    Layout.fillWidth: true }
+////                FactTextField {           // 植保模式 只有侧面覆盖率
+////                    Layout.preferredWidth:  _root._fieldWidth
+////                    fact:				   missionItem.frontalOverlap
+////                }
+//                FactTextField {
 //                    Layout.preferredWidth:  _root._fieldWidth
-//                    fact:				   missionItem.frontalOverlap
+//                    fact:				   missionItem.sideOverlap
 //                }
-                FactTextField {
-                    Layout.preferredWidth:  _root._fieldWidth
-                    fact:				   missionItem.sideOverlap
-                }
-            }
+//            }
 			
             FactCheckBox {
                 text:	   qsTr("允许悬停")
@@ -1043,19 +1044,19 @@ Rectangle {
                     return squaretempH.toFixed(0)+ ", " +"000"+ QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
                 }
             }
-			QGCLabel { text: qsTr("作业单价") }
-            FactTextField {
-                fact:                   missionItem.gridAltitude
-                Layout.fillWidth:       true
-            }
-			QGCLabel { text: qsTr("作业总价") }
-            QGCLabel {
-            text: 
-			{
-			            var total_price = (missionItem.coveredArea /667) *8
-						return	total_price.toFixed(2)+ qsTr(" 元") 
-			}
-				}
+//			QGCLabel { text: qsTr("作业单价") }
+//            FactTextField {
+//                fact:                   missionItem.gridAltitude
+//                Layout.fillWidth:       true
+//            }
+//			QGCLabel { text: qsTr("作业总价") }
+//            QGCLabel {
+//            text: 
+//			{
+//			            var total_price = (missionItem.coveredArea /667) *8
+//						return	total_price.toFixed(2)+ qsTr(" 元") 
+//			}
+//				}
 			
             QGCLabel { text: qsTr("作业时间") }
             QGCLabel { text: (missionItem.cameraShots/2).toFixed(2)+ qsTr("min") }
