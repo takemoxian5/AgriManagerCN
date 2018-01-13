@@ -598,7 +598,7 @@ QList<QPointF> SurveyMissionItem::_convexPolygon(const QList<QPointF>& polygon)
 
     // Sort the points by angle with first point
     for (int i=1; i<workPolygon.count(); i++) {
-        qreal angle = _dp(workPolygon[0], workPolygon[i]);
+        qreal angle = _dp(workPolygon[0], workPolygon[i]);  //sin(a)，用向量夹角方法 顺时针排序
         for (int j=i+1; j<workPolygon.count(); j++) {
             if (_dp(workPolygon[0], workPolygon[j]) > angle) {
                 _swapPoints(workPolygon, i, j);
@@ -1191,8 +1191,18 @@ int SurveyMissionItem::_appendWaypointToMission(QList<MissionItem*>& items, int 
 #ifdef Heading_Dynamic
 double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
 #endif
+#ifdef AgriTrigger_TOCamera
+MissionItem* item ;
+//if(cameraTrigger<AgriTriggerNone||trunline==false)
+//if(((cameraTrigger==AgriTriggerOff||cameraTrigger==AgriTriggerOn)&&trunline==true)  )
+#endif
+{
+#ifdef Agri_SprayPWM
+     item = new MissionItem(seqNum++,
+#else
+	MissionItem* item = new MissionItem(seqNum++,
 
-    MissionItem* item = new MissionItem(seqNum++,
+#endif
                                         MAV_CMD_NAV_WAYPOINT,
                                         altitudeRelative ? MAV_FRAME_GLOBAL_RELATIVE_ALT : MAV_FRAME_GLOBAL,
                                         cameraTrigger == CameraTriggerHoverAndCapture ? _hoverAndCaptureDelaySeconds : 0,  // Hold time (delay for hover and capture to settle vehicle before image is taken)
@@ -1212,6 +1222,7 @@ double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
                                         false,                                      // isCurrentItem
                                         missionItemParent);
     items.append(item);
+}
 
     switch (cameraTrigger) {
     case CameraTriggerOff:
@@ -1250,7 +1261,10 @@ double	gridlineAngle = _gridAngleFact.rawValue().toDouble();
 			1,							 //|Servo number|
             cameraTrigger == AgriTriggerOn ? 1000+10*_agriSprayPWMFact.rawValue() .toInt(): 1000,						 // PWM (microseconds, 1000 to 2000 typical)|
 			NAN,						   
-			NAN, NAN, NAN, NAN, 		 // param 4-7 reserved
+			NAN, 
+			coord.latitude(),
+			coord.longitude(),
+			altitude,
 			true,						 // autoContinue
 			false,						 // isCurrentItem
 			missionItemParent);
@@ -1318,8 +1332,9 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
 			seqNum = _appendWaypointToMission(items, seqNum, coord, firstWaypointTrigger ? AgriTriggerOn : AgriTriggerNone, missionItemParent);
             firstWaypointTrigger = false;
 #ifdef AgriTrigger_TOCamera
-					 trunline=false;
+								 trunline=false;
 #endif	
+
 
         }
 
@@ -1358,17 +1373,27 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
 
         if (_hasTurnaround()) {
             // Add exit turnaround point
+#ifdef AgriTrigger_TOCamera
+		 trunline=true;
+#endif	            
             if (!_nextTransectCoord(segment, pointIndex++, coord)) {
                 return false;
             }
 	     seqNum = _appendWaypointToMission(items, seqNum, coord, AgriTriggerNone, missionItemParent);
 //            seqNum = _appendWaypointToMission(items, seqNum, coord, CameraTriggerNone, missionItemParent);
+#ifdef AgriTrigger_TOCamera
+		 trunline=false;
+#endif	
+
         }
 
         qCDebug(SurveyMissionItemLog) << "last PointIndex" << pointIndex;
     }
+#ifdef AgriTrigger_TOCamera
+	double	altitude =			_gridAltitudeFact.rawValue().toDouble();
+#endif
 
-    if (((hasRefly && buildRefly) || !hasRefly) && _imagesEverywhere()) {
+    if (((hasRefly && buildRefly) || !hasRefly) && _imagesEverywhere()) {  //一直喷洒模式下，只在出口关闭喷洒
         // Turn off camera at end of survey
         MissionItem* item = new MissionItem(seqNum++,
 #ifdef AgriTrigger_TOCamera
@@ -1376,6 +1401,12 @@ bool SurveyMissionItem::_appendMissionItemsWorker(QList<MissionItem*>& items, QO
 											MAV_FRAME_MISSION,
 											1,							 //|Servo number|
 											1000,						 // PWM (microseconds, 1000 to 2000 typical)|
+											NAN,						   
+											NAN, 
+											coord.latitude(),
+											coord.longitude(),
+											altitude,
+
 #else
                                             MAV_CMD_DO_SET_CAM_TRIGG_DIST,
 

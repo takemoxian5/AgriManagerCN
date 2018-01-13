@@ -344,7 +344,10 @@ int MissionController::insertComplexMissionItem(QString itemName, QGeoCoordinate
                 cameraSection->gimbalPitch()->setRawValue(-90.0);
             }
         }
-    } else if (itemName == _fwLandingMissionItemName) {
+    }
+
+
+		else if (itemName == _fwLandingMissionItemName) {
         newItem = new FixedWingLandingComplexItem(_controllerVehicle, _visualItems);
     } else {
         qWarning() << "Internal error: Unknown complex item:" << itemName;

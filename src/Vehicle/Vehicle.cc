@@ -2435,27 +2435,27 @@ void Vehicle::setOfflineEditingDefaultComponentId(int defaultComponentId)
 
 void Vehicle::triggerCamera(void)
 {
-#ifdef AgriTrigger_TOCamera
-//		vehicle->sendMavCommand(vehicle->defaultComponentId(),
-//								MAV_CMD_DO_REPOSITION,
-//								true,	// show error if failed
-//								-1.0f,
-//								MAV_DO_REPOSITION_FLAGS_CHANGE_MODE,
-//								0.0f,
-//								NAN,
-//								NAN,
-//								NAN,
-//								NAN);
-		sendMavCommand(_defaultComponentId,
-					   MAV_CMD_DO_SET_SERVO,
-					   true,							// show errors
-					   2, 
-					   1500,
-					    NAN, NAN, NAN, NAN, NAN						// param 3-7 unused
-					 ); 						   // test shot flag
+#ifdef AgriTrigger_TOCamera2
+		vehicle->sendMavCommand(vehicle->defaultComponentId(),
+								MAV_CMD_DO_REPOSITION,
+								true,	// show error if failed
+								-1.0f,
+								MAV_DO_REPOSITION_FLAGS_CHANGE_MODE,
+								0.0f,
+								NAN,
+								NAN,
+								NAN,
+								NAN);
+//		sendMavCommand(_defaultComponentId,
+//					   MAV_CMD_DO_SET_SERVO,
+//					   true,							// show errors
+//					   2, 
+//					   1500,
+//					    NAN, NAN, NAN, NAN, NAN						// param 3-7 unused
+//					 ); 						   // test shot flag
 #endif
 
-#ifdef AgriTrigger_TOCamera2
+#ifdef AgriTrigger_TOCamera
     sendMavCommand(_defaultComponentId,
                    MAV_CMD_DO_DIGICAM_CONTROL,
                    true,                            // show errors
@@ -2470,10 +2470,10 @@ void Vehicle::triggerAgri(void)
 {
 
 #ifdef AgriTrigger_TOCamera
-    sendMavCommand(MAV_COMP_ID_SERVO1,
+    sendMavCommand(_defaultComponentId,
                    MAV_CMD_DO_SET_SERVO,
                    true,                            // show errors
-                   1, 
+                   5, 
                   1500,
                    NAN, NAN, NAN, NAN, NAN           				// param 3-7 unused
                  );                            // test shot flag

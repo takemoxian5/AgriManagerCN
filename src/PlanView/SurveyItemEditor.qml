@@ -1018,13 +1018,13 @@ Rectangle {
 						//无进位
                         
                         if(squaretemp>100)
-                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+                        return  (squaretempH).toFixed(0)+ ","+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(1)+"亩"
 						else if(squaretemp>10)	
-					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+					    return  (squaretempH).toFixed(0)+ ",0"+squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(1)+"亩"
 //						else if(squaretemp>1)
 //						return	(squaretempH).toFixed(0)+ ",00"+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
 						 else  
-						 return	(squaretempH).toFixed(0)+ ",00" + squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+						 return	(squaretempH).toFixed(0)+ ",00" + squaretemp.toFixed(0) +  QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(1)+"亩"
 
 					}
                     //进位
@@ -1041,7 +1041,7 @@ Rectangle {
 //                        return  (squaretempH-0.6).toFixed(0)+ ", "+squaretemp.toFixed(1) + " "+ QGroundControl.appSettingsAreaUnitsString
 //                    }
                     //进位
-                    return squaretempH.toFixed(0)+ ", " +"000"+ QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(2)+"亩"
+                    return squaretempH.toFixed(0)+ ", " +"000"+ QGroundControl.appSettingsAreaUnitsString+"≈"+square_mu.toFixed(1)+"亩"
                 }
             }
 //			QGCLabel { text: qsTr("作业单价") }

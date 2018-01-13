@@ -17,8 +17,8 @@ SimulatedPosition::simulated_motion_s SimulatedPosition::_simulated_motion[5] = 
 
 SimulatedPosition::SimulatedPosition()
     : QGeoPositionInfoSource(NULL),
-      lat_int(47.3977420*1e7),
-      lon_int(8.5455941*1e7),
+      lat_int(22.5701491*1e7),
+      lon_int(113.583497*1e7),
       _step_cnt(0),
       _simulate_motion_index(0),
       _simulate_motion(true),

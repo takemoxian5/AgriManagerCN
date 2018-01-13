@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.3.1, 2018-01-11T09:12:52. -->
+<!-- Written by QtCreator 4.2.0, 2017-11-24T14:36:07. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -59,14 +59,14 @@
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Android for armeabi-v7a (GCC 4.9, Qt 5.9.1 for Android armv7)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Android for armeabi-v7a (GCC 4.9, Qt 5.9.1 for Android armv7)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{3da92a76-d4eb-498b-b556-0793862ec7bf}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop Qt 5.7.1 MSVC2015 32bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop Qt 5.7.1 MSVC2015 32bit</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.57.win32_msvc2015_kit</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Android_for_armeabi_v7a_GCC_4_9_Qt_5_9_1_for_Android_armv7-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Desktop_Qt_5_7_1_MSVC2015_32bit-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -84,32 +84,12 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">false</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments"></value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
      </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Copy application data</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidPackageInstallationStep</value>
-     </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
-      <value type="QString" key="BuildTargetSdk">android-27</value>
-      <value type="QString" key="KeystoreLocation"></value>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
-      <value type="bool" key="VerboseOutput">false</value>
-     </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">构建</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
@@ -120,10 +100,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">true</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments">clean</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
@@ -143,7 +120,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Android_for_armeabi_v7a_GCC_4_9_Qt_5_9_1_for_Android_armv7-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Desktop_Qt_5_7_1_MSVC2015_32bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -161,32 +138,12 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">false</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments"></value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
      </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Copy application data</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidPackageInstallationStep</value>
-     </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
-      <value type="QString" key="BuildTargetSdk">android-27</value>
-      <value type="QString" key="KeystoreLocation"></value>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
-      <value type="bool" key="VerboseOutput">false</value>
-     </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">构建</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
@@ -197,10 +154,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">true</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments">clean</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
@@ -220,7 +174,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.2">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Android_for_armeabi_v7a_GCC_4_9_Qt_5_9_1_for_Android_armv7-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Desktop_Qt_5_7_1_MSVC2015_32bit-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -238,32 +192,12 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">false</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments"></value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
      </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Copy application data</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidPackageInstallationStep</value>
-     </valuemap>
-     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.3">
-      <value type="QString" key="BuildTargetSdk">android-27</value>
-      <value type="QString" key="KeystoreLocation"></value>
-      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Build Android APK</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.AndroidBuildApkStep</value>
-      <value type="int" key="Qt4ProjectManager.AndroidDeployQtStep.DeployQtAction">2</value>
-      <value type="bool" key="UseGradle">true</value>
-      <value type="bool" key="VerboseOutput">false</value>
-     </valuemap>
-     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">4</value>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">构建</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
@@ -274,10 +208,7 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
-      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments">
-       <value type="QString">-w</value>
-       <value type="QString">-r</value>
-      </valuelist>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
       <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">true</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments">clean</value>
       <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
@@ -296,25 +227,72 @@
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">0</value>
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
-   <value type="int" key="ProjectExplorer.Target.BuildConfigurationCount">3</value>
-   <valuemap type="QVariantMap" key="ProjectExplorer.Target.DeployConfiguration.0">
+   <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.3">
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/build-qgroundcontrol-Desktop_Qt_5_7_1_MSVC2015_32bit-res2</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Deploy to Android device</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">qmake</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidDeployQtStep</value>
-      <value type="bool" key="UninstallPreviousPackage">false</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QtProjectManager.QMakeBuildStep</value>
+      <value type="bool" key="QtProjectManager.QMakeBuildStep.LinkQmlDebuggingLibrary">false</value>
+      <value type="QString" key="QtProjectManager.QMakeBuildStep.QMakeArguments"></value>
+      <value type="bool" key="QtProjectManager.QMakeBuildStep.QMakeForced">false</value>
+      <value type="bool" key="QtProjectManager.QMakeBuildStep.SeparateDebugInfo">false</value>
+      <value type="bool" key="QtProjectManager.QMakeBuildStep.UseQtQuickCompiler">false</value>
+     </valuemap>
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
+      <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">false</value>
+      <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments"></value>
+      <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
+     </valuemap>
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">构建</value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Build</value>
+    </valuemap>
+    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.1">
+     <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
+      <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Make</value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.MakeStep</value>
+      <valuelist type="QVariantList" key="Qt4ProjectManager.MakeStep.AutomaticallyAddedMakeArguments"/>
+      <value type="bool" key="Qt4ProjectManager.MakeStep.Clean">true</value>
+      <value type="QString" key="Qt4ProjectManager.MakeStep.MakeArguments">clean</value>
+      <value type="QString" key="Qt4ProjectManager.MakeStep.MakeCommand"></value>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">1</value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">清理</value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Clean</value>
+    </valuemap>
+    <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
+    <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
+    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">res2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4BuildConfiguration</value>
+    <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">0</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
+   </valuemap>
+   <value type="int" key="ProjectExplorer.Target.BuildConfigurationCount">4</value>
+   <valuemap type="QVariantMap" key="ProjectExplorer.Target.DeployConfiguration.0">
+    <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
+     <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">0</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">部署</value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
      <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.BuildSteps.Deploy</value>
     </valuemap>
     <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">1</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">部署到Android设备</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">部署到Android设备</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidDeployConfiguration2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">在本地部署</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.DefaultDeployConfiguration</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.PluginSettings"/>
@@ -358,10 +336,17 @@
      <value type="int">13</value>
      <value type="int">14</value>
     </valuelist>
+    <value type="int" key="PE.EnvironmentAspect.Base">2</value>
+    <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">qgroundcontrol</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/AgriManager/qgroundcontrol.pro</value>
-    <value type="QString" key="QMakeProjectManager.QmakeAndroidRunConfiguration.ProFile">qgroundcontrol.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:E:/UAV/qgroundcontrol_prj/qgroundcontrol_myprj/qgcAgriManager/qgcAgriManager/AgriManager/qgroundcontrol.pro</value>
+    <value type="bool" key="QmakeProjectManager.QmakeRunConfiguration.UseLibrarySearchPath">true</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">qgroundcontrol.pro</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

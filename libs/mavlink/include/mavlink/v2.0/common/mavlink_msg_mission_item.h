@@ -139,7 +139,6 @@ static inline uint16_t mavlink_msg_mission_item_pack(uint8_t system_id, uint8_t 
     packet.current = current;
     packet.autocontinue = autocontinue;
     packet.mission_type = mission_type;
-
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_MISSION_ITEM_LEN);
 #endif
 
